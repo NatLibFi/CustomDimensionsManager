@@ -1,0 +1,25 @@
+{
+    "name": "CustomDimensionsManager",
+    "description": "Manage custom dimensions configuration. Console interface only.",
+    "version": "0.1.0",
+    "theme": false,
+    "require": {
+        "matomo": ">=4.0.0,<5.0.0-b1"
+    },
+    "authors": [
+        {
+            "name": "Ere Maijala",
+            "email": "ere.maijala@helsinki.fi",
+            "homepage": "https://github.com/NatLibFi/CustomDimensionsManager"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/NatLibFi/CustomDimensionsManager/issues",
+        "source": "https://github.com/NatLibFi/CustomDimensionsManager"
+    },
+    "homepage": "https://github.com/NatLibFi/CustomDimensionsManager",
+    "license": "GPL v3+",
+    "keywords": [
+        "custom dimensions"
+    ]
+}
