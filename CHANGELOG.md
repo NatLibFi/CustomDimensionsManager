@@ -1,5 +1,9 @@
 ## Changelog
 
+### v0.1.2
+
+- Added support for Matomo 5.x.
+
 ### v0.1.1
 
 - Improvements to the README file and docs.

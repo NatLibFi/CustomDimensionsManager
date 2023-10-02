@@ -9,10 +9,6 @@
 namespace Piwik\Plugins\CustomDimensionsManager\Commands;
 
 use Piwik\Plugin\ConsoleCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Synchronize command
@@ -23,19 +19,20 @@ class Synchronize extends ConsoleCommand
     {
         $this->setName('customdimensionsmanager:synchronize');
         $this->setDescription('Synchronize custom dimensions configuration between sites.');
-        $this->addArgument('idsite_source', InputArgument::REQUIRED, 'Site ID to use as the source for configuration.');
-        $this->addargument('idsite_target', InputArgument::REQUIRED, "Target site ID. Use '*' synchronize all sites.");
-        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'For tests. Runs the command w/o actually '
-            . 'changing anything.');
+        $this->addRequiredArgument('idsite_source', 'Site ID to use as the source for configuration.');
+        $this->addRequiredArgument('idsite_target', "Target site ID. Use '*' synchronize all sites.");
+        $this->addNoValueOption('dry-run', null, 'For tests. Runs the command w/o actually changing anything.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function doExecute(): int
     {
+        $input = $this->getInput();
         $idSiteSource = $input->getArgument('idsite_source');
         $idSiteTarget = $input->getArgument('idsite_target');
         $write = !$input->getOption('dry-run');
 
         $manager = new \Piwik\Plugins\CustomDimensionsManager\CustomDimensionsManager();
-        return $manager->synchronizeSettings($idSiteSource, $idSiteTarget, $write, $output) ? 0 : 1;
+        return $manager->synchronizeSettings($idSiteSource, $idSiteTarget, $write, $this->getOutput())
+            ? static::SUCCESS : static::FAILURE;
     }
 }

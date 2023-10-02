@@ -9,9 +9,6 @@
 namespace Piwik\Plugins\CustomDimensionsManager\Commands;
 
 use Piwik\Plugin\ConsoleCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Delete command
@@ -22,14 +19,14 @@ class Delete extends ConsoleCommand
     {
         $this->setName('customdimensionsmanager:delete');
         $this->setDescription('Delete custom dimensions configuration of a site.');
-        $this->addArgument('idsite', InputArgument::REQUIRED, 'Site ID.');
+        $this->addRequiredArgument('idsite', 'Site ID.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function doExecute(): int
     {
-        $idSite = $input->getArgument('idsite');
+        $idSite = $this->getInput()->getArgument('idsite');
 
         $manager = new \Piwik\Plugins\CustomDimensionsManager\CustomDimensionsManager();
-        return $manager->deleteSettings($idSite, $output) ? 0 : 1;
+        return $manager->deleteSettings($idSite, $this->getOutput()) ? static::SUCCESS : static::FAILURE;
     }
 }
